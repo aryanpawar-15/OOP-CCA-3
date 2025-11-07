@@ -1,0 +1,1861 @@
+#include<iostream>
+using namespace std;
+
+class Student {
+    int roll_no;
+    string name, cls;
+public:
+    void input() {
+        cout << "Enter roll no: ";
+        cin >> roll_no;
+        cout << "Enter name: ";
+        cin >> name;
+        cout << "Enter class: ";
+        cin >> cls;
+    }
+    void display() {
+        cout << "Roll No: " << roll_no << endl;
+        cout << "Name: " << name << endl;
+        cout << "Class: " << cls << endl;
+    }
+};
+
+int main() {
+    Student s;
+    s.input();
+    s.display();
+    return 0;
+}
+
+
+#include<iostream>
+using namespace std;
+
+class Book {
+public:
+    string book_name;
+    float price;
+    int pages;
+    void input() {
+        cout << "Enter book name: ";
+        cin >> book_name;
+        cout << "Enter price: ";
+        cin >> price;
+        cout << "Enter pages: ";
+        cin >> pages;
+    }
+};
+
+int main() {
+    Book b1, b2;
+    b1.input();
+    b2.input();
+    if (b1.price > b2.price)
+        cout << "Book with greater price: " << b1.book_name << endl;
+    else
+        cout << "Book with greater price: " << b2.book_name << endl;
+    return 0;
+}
+
+
+#include<iostream>
+using namespace std;
+
+class Time {
+    int hh, mm, ss;
+public:
+    void input() {
+        cout << "Enter time (HH MM SS): ";
+        cin >> hh >> mm >> ss;
+    }
+    void convert() {
+        int total = hh * 3600 + mm * 60 + ss;
+        cout << "Total seconds: " << total << endl;
+    }
+};
+
+int main() {
+    Time t;
+    t.input();
+    t.convert();
+    return 0;
+}
+
+
+#include <iostream>
+#include <string>
+#include <limits>
+#include <algorithm>
+
+using namespace std;
+
+class City {
+private:
+    string cityName;
+    long population;
+
+public:
+    void getCityData() {
+        cout << "Enter city name: ";
+        getline(cin, cityName);
+        cout << "Enter population: ";
+        cin >> population;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
+    void displayCityData() const {
+        cout << "City: " << cityName << ", Population: " << population;
+    }
+
+    long getPopulation() const {
+        return population;
+    }
+
+    string getName() const {
+        return cityName;
+    }
+};
+
+void findHighestPopulation(City cities[], int size) {
+    if (size == 0) {
+        cout << "No cities entered." << endl;
+        return;
+    }
+
+    City highest = cities[0];
+    for (int i = 1; i < size; ++i) {
+        if (cities[i].getPopulation() > highest.getPopulation()) {
+            highest = cities[i];
+        }
+    }
+
+    cout << "\nCity with the highest population is:" << endl;
+    highest.displayCityData();
+    cout << endl;
+}
+
+int main() {
+    const int NUM_CITIES = 3;
+    City cities[NUM_CITIES];
+
+    for (int i = 0; i < NUM_CITIES; ++i) {
+        cout << "\nEnter details for city " << i + 1 << endl;
+        cities[i].getCityData();
+    }
+
+    findHighestPopulation(cities, NUM_CITIES);
+
+    return 0;
+}
+
+
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+class Account {
+private:
+    int accNumber;
+    string accName;
+    double balance;
+    const double INTEREST_RATE = 0.10;
+
+public:
+    void getAccountData() {
+        cout << "Enter Account Number: ";
+        cin >> accNumber;
+        cout << "Enter Account Holder Name: ";
+        cin.ignore();
+        getline(cin, accName);
+        cout << "Enter Initial Balance: ";
+        cin >> balance;
+    }
+
+    void calculateInterest() {
+        if (balance >= 5000) {
+            double interest = balance * INTEREST_RATE;
+            balance += interest;
+        }
+    }
+
+    void displayAccountData() const {
+        cout << left << setw(15) << accNumber
+             << left << setw(20) << accName
+             << fixed << setprecision(2) << balance << endl;
+    }
+};
+
+int main() {
+    const int NUM_ACCOUNTS = 10;
+    Account accounts[NUM_ACCOUNTS];
+
+    for (int i = 0; i < NUM_ACCOUNTS; ++i) {
+        cout << "\nEnter details for Account " << i + 1 << endl;
+        accounts[i].getAccountData();
+        accounts[i].calculateInterest();
+    }
+
+    cout << "\n" << string(50, '-') << endl;
+    cout << left << setw(15) << "Account No."
+         << left << setw(20) << "Name"
+         << "New Balance" << endl;
+    cout << string(50, '-') << endl;
+
+    for (int i = 0; i < NUM_ACCOUNTS; ++i) {
+        accounts[i].displayAccountData();
+    }
+    cout << string(50, '-') << endl;
+
+    return 0;
+}
+
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+class Staff {
+private:
+    string staffName;
+    string post;
+
+public:
+    void getStaffData() {
+        cout << "Enter Staff Name: ";
+        cin.ignore();
+        getline(cin, staffName);
+        cout << "Enter Post (e.g., Teacher, HOD, Principal): ";
+        getline(cin, post);
+    }
+
+    void displayHODName() const {
+        if (post == "HOD" || post == "hod") {
+            cout << staffName << endl;
+        }
+    }
+    
+    string getPost() const {
+        return post;
+    }
+};
+
+int main() {
+    const int NUM_STAFF = 5;
+    Staff staffArray[NUM_STAFF];
+
+    for (int i = 0; i < NUM_STAFF; ++i) {
+        cout << "\nEnter details for Staff " << i + 1 << endl;
+        staffArray[i].getStaffData();
+    }
+
+    cout << "\nNames of HODs:" << endl;
+    bool foundHOD = false;
+    for (int i = 0; i < NUM_STAFF; ++i) {
+        if (staffArray[i].getPost() == "HOD" || staffArray[i].getPost() == "hod") {
+            cout << staffArray[i].getName() << endl;
+            foundHOD = true;
+        }
+    }
+
+    if (!foundHOD) {
+        cout << "No HODs found." << endl;
+    }
+
+    return 0;
+}
+
+
+
+#include <iostream>
+#include <string>
+#include <limits>
+#include <iomanip>
+
+using namespace std;
+
+class Book {
+private:
+    string bookTitle;
+    string authorName;
+    double price;
+
+public:
+    void acceptInfo() {
+        cout << "Enter Book Title: ";
+        getline(cin, bookTitle);
+        cout << "Enter Author Name: ";
+        getline(cin, authorName);
+        cout << "Enter Price: ";
+        cin >> price;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
+    void displayInfo() const {
+        cout << "\n--- Book Information ---" << endl;
+        cout << "Title: " << bookTitle << endl;
+        cout << "Author: " << authorName << endl;
+        cout << fixed << setprecision(2);
+        cout << "Price: Rs " << price << endl;
+    }
+};
+
+int main() {
+    Book b1;
+    Book *ptrB;
+
+    ptrB = &b1;
+
+    cout << "Accepting Book Information:" << endl;
+    ptrB->acceptInfo();
+
+    cout << "\nDisplaying Information using Pointer to Object:" << endl;
+    ptrB->displayInfo();
+
+    return 0;
+}
+
+
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+class Student {
+private:
+    int roll_no;
+    double percentage;
+
+public:
+    void acceptData(int roll_no, double percentage) {
+        this->roll_no = roll_no;
+        this->percentage = percentage;
+    }
+
+    void displayData() const {
+        cout << "\n--- Student Data (using 'this' pointer) ---" << endl;
+        cout << "Roll No: " << this->roll_no << endl;
+        cout << fixed << setprecision(2);
+        cout << "Percentage: " << this->percentage << "%" << endl;
+    }
+};
+
+int main() {
+    Student s1;
+    int roll;
+    double percent;
+
+    cout << "Enter Roll Number: ";
+    cin >> roll;
+    cout << "Enter Percentage: ";
+    cin >> percent;
+
+    s1.acceptData(roll, percent);
+
+    s1.displayData();
+
+    return 0;
+}
+
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Outer {
+private:
+    int outerData;
+
+public:
+    Outer(int data) : outerData(data) {}
+
+    class Inner {
+    private:
+        int innerData;
+    public:
+        Inner(int data) : innerData(data) {}
+
+        void displayInner(const Outer& parent) const {
+            cout << "\n--- Nested Class Demonstration ---" << endl;
+            cout << "Inner Class Data: " << innerData << endl;
+            cout << "Accessing Parent's (Outer) Data: " << parent.outerData << endl;
+        }
+
+        void displayInnerOnly() const {
+            cout << "Inner Data Only: " << innerData << endl;
+        }
+    };
+
+    void displayOuter() const {
+        cout << "Outer Class Data: " << outerData << endl;
+    }
+};
+
+int main() {
+    Outer outerObj(100);
+    Outer::Inner innerObj(200);
+
+    outerObj.displayOuter();
+    innerObj.displayInner(outerObj);
+
+    return 0;
+}
+
+
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+class Result2;
+
+class Result1 {
+private:
+    int marks1;
+    int marks2;
+public:
+    void readMarks() {
+        cout << "Enter marks 1 (Result1): ";
+        cin >> marks1;
+        cout << "Enter marks 2 (Result1): ";
+        cin >> marks2;
+    }
+
+    int getTotalMarks() const {
+        return marks1 + marks2;
+    }
+};
+
+class Result2 {
+private:
+    int marks3;
+    int marks4;
+public:
+    void readMarks() {
+        cout << "Enter marks 3 (Result2): ";
+        cin >> marks3;
+        cout << "Enter marks 4 (Result2): ";
+        cin >> marks4;
+    }
+
+    int getTotalMarks() const {
+        return marks3 + marks4;
+    }
+};
+
+void computeAverage(Result1 r1, Result2 r2) {
+    int totalMarks = r1.getTotalMarks() + r2.getTotalMarks();
+    double average = static_cast<double>(totalMarks) / 4.0;
+    cout << fixed << setprecision(2);
+    cout << "\nCombined Total Marks: " << totalMarks << endl;
+    cout << "Overall Average of 4 Marks: " << average << endl;
+}
+
+int main() {
+    Result1 res1;
+    Result2 res2;
+
+    cout << "--- Reading Marks for Result1 ---" << endl;
+    res1.readMarks();
+    cout << "\n--- Reading Marks for Result2 ---" << endl;
+    res2.readMarks();
+
+    computeAverage(res1, res2);
+
+    return 0;
+}
+
+
+#include <iostream>
+
+using namespace std;
+
+class ClassB;
+
+class ClassA {
+private:
+    int numA;
+public:
+    ClassA(int n) : numA(n) {}
+    friend void findGreatest(ClassA a, ClassB b);
+};
+
+class ClassB {
+private:
+    int numB;
+public:
+    ClassB(int n) : numB(n) {}
+    friend void findGreatest(ClassA a, ClassB b);
+};
+
+void findGreatest(ClassA a, ClassB b) {
+    cout << "\nComparing numbers (" << a.numA << " and " << b.numB << "):" << endl;
+    if (a.numA > b.numB) {
+        cout << a.numA << " from ClassA is the greatest." << endl;
+    } else if (b.numB > a.numA) {
+        cout << b.numB << " from ClassB is the greatest." << endl;
+    } else {
+        cout << "Both numbers are equal." << endl;
+    }
+}
+
+int main() {
+    int valA, valB;
+    cout << "Enter a number for Class A: ";
+    cin >> valA;
+    cout << "Enter a number for Class B: ";
+    cin >> valB;
+
+    ClassA objA(valA);
+    ClassB objB(valB);
+
+    findGreatest(objA, objB);
+
+    return 0;
+}
+
+
+#include <iostream>
+
+using namespace std;
+
+class Value {
+private:
+    int data;
+public:
+    Value(int d) : data(d) {}
+
+    void display() const {
+        cout << "Data: " << data;
+    }
+
+    friend void swapValues(Value& v1, Value& v2);
+};
+
+void swapValues(Value& v1, Value& v2) {
+    int temp = v1.data;
+    v1.data = v2.data;
+    v2.data = temp;
+}
+
+int main() {
+    int val1, val2;
+    cout << "Enter value for V1: ";
+    cin >> val1;
+    cout << "Enter value for V2: ";
+    cin >> val2;
+
+    Value V1(val1);
+    Value V2(val2);
+
+    cout << "\nBefore swap:" << endl;
+    cout << "V1: ";
+    V1.display();
+    cout << endl;
+    cout << "V2: ";
+    V2.display();
+    cout << endl;
+
+    swapValues(V1, V2);
+
+    cout << "\nAfter swap (using friend function):" << endl;
+    cout << "V1: ";
+    V1.display();
+    cout << endl;
+    cout << "V2: ";
+    V2.display();
+    cout << endl;
+
+    return 0;
+}
+
+
+#include <iostream>
+
+using namespace std;
+
+class SumCalculator {
+private:
+    int N;
+    long sum;
+
+public:
+    SumCalculator(int n) : N(n), sum(0) {
+        if (N >= 0) {
+            sum = (long)N * (N + 1) / 2;
+        } else {
+            cout << "Warning: N is negative. Sum calculated for N=0." << endl;
+        }
+    }
+
+    void displaySum() const {
+        cout << "The sum of numbers from 1 to " << N << " is: " << sum << endl;
+    }
+};
+
+int main() {
+    int valueN;
+    cout << "Enter the value of N: ";
+    cin >> valueN;
+
+    SumCalculator sc(valueN);
+    sc.displaySum();
+
+    return 0;
+}
+
+
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include <limits>
+
+using namespace std;
+
+class Student {
+private:
+    string name;
+    double percentage;
+
+public:
+    Student(string n, double p) : name(n), percentage(p) {}
+
+    void displayData() const {
+        cout << "\n--- Student Details ---" << endl;
+        cout << "Name: " << name << endl;
+        cout << fixed << setprecision(2);
+        cout << "Percentage: " << percentage << "%" << endl;
+    }
+};
+
+int main() {
+    string studentName;
+    double studentPercentage;
+
+    cout << "Enter student name: ";
+    getline(cin, studentName);
+    cout << "Enter percentage: ";
+    cin >> studentPercentage;
+
+    Student s1(studentName, studentPercentage);
+    s1.displayData();
+
+    return 0;
+}
+
+
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include <limits>
+
+using namespace std;
+
+class College {
+private:
+    int roll_no;
+    string name;
+    string course;
+
+public:
+    College(int r, string n, string c = "Computer Engineering")
+        : roll_no(r), name(n), course(c) {}
+
+    void displayData() const {
+        cout << left << setw(10) << roll_no
+             << left << setw(20) << name
+             << left << setw(25) << course << endl;
+    }
+};
+
+int main() {
+    cout << "Data for Object 1 (using default course):" << endl;
+    int r1;
+    string n1;
+    cout << "Enter Roll No: ";
+    cin >> r1;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "Enter Name: ";
+    getline(cin, n1);
+
+    College c1(r1, n1);
+
+    cout << "\nData for Object 2 (specifying a different course):" << endl;
+    int r2;
+    string n2, c2;
+    cout << "Enter Roll No: ";
+    cin >> r2;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "Enter Name: ";
+    getline(cin, n2);
+    cout << "Enter Course: ";
+    getline(cin, c2);
+
+    College c2_obj(r2, n2, c2);
+
+    cout << "\n" << string(55, '=') << endl;
+    cout << left << setw(10) << "Roll No"
+         << left << setw(20) << "Name"
+         << left << setw(25) << "Course" << endl;
+    cout << string(55, '=') << endl;
+
+    c1.displayData();
+    c2_obj.displayData();
+
+    cout << string(55, '=') << endl;
+
+    return 0;
+}
+
+
+
+#include <iostream>
+
+using namespace std;
+
+class Box {
+private:
+    double length;
+    double width;
+    double height;
+
+public:
+    Box() : length(0.0), width(0.0), height(0.0) {}
+
+    Box(double side) : length(side), width(side), height(side) {}
+
+    Box(double l, double w, double h) : length(l), width(w), height(h) {}
+
+    double calculateVolume() const {
+        return length * width * height;
+    }
+
+    void displayVolume(const string& type) const {
+        cout << "Volume of " << type << " Box: " << calculateVolume() << endl;
+    }
+};
+
+int main() {
+    Box b1;
+    b1.displayVolume("Default (0-arg)");
+
+    Box b2(5.0);
+    b2.displayVolume("Cube (1-arg)");
+
+    Box b3(3.0, 4.0, 5.0);
+    b3.displayVolume("Rectangular (3-arg)");
+
+    return 0;
+}
+
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Grandparent {
+protected:
+    string surname;
+public:
+    Grandparent(string s) : surname(s) {
+        cout << "Grandparent created. Surname: " << surname << endl;
+    }
+    void showSurname() const {
+        cout << "Surname: " << surname << endl;
+    }
+};
+
+class Parent : public Grandparent {
+protected:
+    string fatherName;
+public:
+    Parent(string s, string fn) : Grandparent(s), fatherName(fn) {
+        cout << "Parent created. Father's Name: " << fatherName << endl;
+    }
+    void showFatherName() const {
+        cout << "Father's Name: " << fatherName << endl;
+    }
+};
+
+class Child : public Parent {
+private:
+    string childName;
+public:
+    Child(string s, string fn, string cn) : Parent(s, fn), childName(cn) {
+        cout << "Child created. Child's Name: " << childName << endl;
+    }
+    void displayAll() const {
+        cout << "\n--- Child Details (Multilevel) ---" << endl;
+        cout << "Child Name: " << childName << endl;
+        showFatherName();
+        showSurname();
+    }
+};
+
+int main() {
+    Child c1("Sharma", "Ramesh", "Amit");
+    c1.displayAll();
+    return 0;
+}
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Base1 {
+protected:
+    string role1;
+public:
+    Base1(string r1) : role1(r1) {}
+    void displayRole1() const {
+        cout << "Role 1: " << role1 << endl;
+    }
+};
+
+class Base2 {
+protected:
+    string role2;
+public:
+    Base2(string r2) : role2(r2) {}
+    void displayRole2() const {
+        cout << "Role 2: " << role2 << endl;
+    }
+};
+
+class Derived : public Base1, public Base2 {
+private:
+    string name;
+public:
+    Derived(string n, string r1, string r2) : Base1(r1), Base2(r2), name(n) {}
+
+    void displayAll() const {
+        cout << "\n--- Person Details (Multiple Inheritance) ---" << endl;
+        cout << "Name: " << name << endl;
+        displayRole1();
+        displayRole2();
+    }
+};
+
+int main() {
+    Derived d1("Priya", "Programmer", "Musician");
+    d1.displayAll();
+    return 0;
+}
+
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Animal {
+protected:
+    string species;
+public:
+    Animal(string s) : species(s) {}
+    void eat() const {
+        cout << species << " is eating." << endl;
+    }
+};
+
+class Mammal : public Animal {
+private:
+    string sound;
+public:
+    Mammal(string s, string sd) : Animal(s), sound(sd) {}
+    void makeSound() const {
+        cout << species << " makes the sound: " << sound << endl;
+    }
+    void display() const {
+        cout << "\n--- Mammal Details (Hierarchical) ---" << endl;
+        eat();
+        makeSound();
+    }
+};
+
+class Bird : public Animal {
+private:
+    bool canFly;
+public:
+    Bird(string s, bool fly) : Animal(s), canFly(fly) {}
+    void flyStatus() const {
+        cout << species << (canFly ? " can fly." : " cannot fly.") << endl;
+    }
+    void display() const {
+        cout << "\n--- Bird Details (Hierarchical) ---" << endl;
+        eat();
+        flyStatus();
+    }
+};
+
+int main() {
+    Mammal lion("Lion", "Roar");
+    Bird penguin("Penguin", false);
+
+    lion.display();
+    penguin.display();
+
+    return 0;
+}
+
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Person {
+protected:
+    string name;
+public:
+    Person(string n) : name(n) {}
+    void showName() const {
+        cout << "Name: " << name << endl;
+    }
+};
+
+class Employee : virtual public Person {
+protected:
+    int empId;
+public:
+    Employee(string n, int id) : Person(n), empId(id) {}
+    void showEmpId() const {
+        cout << "Employee ID: " << empId << endl;
+    }
+};
+
+class Student : virtual public Person {
+protected:
+    int rollNo;
+public:
+    Student(string n, int roll) : Person(n), rollNo(roll) {}
+    void showRollNo() const {
+        cout << "Roll No: " << rollNo << endl;
+    }
+};
+
+class TA : public Employee, public Student {
+private:
+    string subject;
+public:
+    TA(string n, int id, int roll, string sub)
+        : Person(n), Employee(n, id), Student(n, roll), subject(sub) {}
+
+    void displayData() const {
+        cout << "\n--- TA Details (Hybrid Inheritance) ---" << endl;
+        showName();
+        showEmpId();
+        showRollNo();
+        cout << "Subject: " << subject << endl;
+    }
+};
+
+int main() {
+    TA ta1("Rajesh", 101, 55, "C++");
+    ta1.displayData();
+    return 0;
+}
+
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Base {
+protected:
+    int value;
+public:
+    Base(int v) : value(v) {
+        cout << "Base Constructor called with value " << value << endl;
+    }
+    void showValue() const {
+        cout << "Base Value: " << value << endl;
+    }
+};
+
+class Derived1 : virtual public Base {
+public:
+    Derived1(int v1, int baseV) : Base(baseV) {
+        cout << "Derived1 Constructor called." << endl;
+    }
+};
+
+class Derived2 : virtual public Base {
+public:
+    Derived2(int v2, int baseV) : Base(baseV) {
+        cout << "Derived2 Constructor called." << endl;
+    }
+};
+
+class FinalDerived : public Derived1, public Derived2 {
+private:
+    int result;
+public:
+    FinalDerived(int v1, int v2, int baseV)
+        : Base(baseV), Derived1(v1, baseV), Derived2(v2, baseV) {
+        result = v1 + v2 + baseV;
+        cout << "FinalDerived Constructor called." << endl;
+    }
+    void displayResult() const {
+        cout << "\n--- FinalDerived Details (Virtual Base Class) ---" << endl;
+        showValue();
+        cout << "Calculated Result: " << result << endl;
+    }
+};
+
+int main() {
+    FinalDerived fd(10, 20, 5);
+    fd.displayResult();
+    return 0;
+}
+
+
+
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+class AreaCalculator {
+public:
+    double calculateArea(double length, double width) const {
+        return length * width;
+    }
+
+    double calculateArea(double side) const {
+        return side * side;
+    }
+};
+
+int main() {
+    AreaCalculator calculator;
+    double labLength, labWidth, classroomSide;
+
+    cout << "Enter length of laboratory (rectangle): ";
+    cin >> labLength;
+    cout << "Enter width of laboratory (rectangle): ";
+    cin >> labWidth;
+
+    double areaLab = calculator.calculateArea(labLength, labWidth);
+
+    cout << "\nEnter side length of classroom (square): ";
+    cin >> classroomSide;
+
+    double areaClassroom = calculator.calculateArea(classroomSide);
+
+    cout << fixed << setprecision(2);
+    cout << "\n--- Area Calculations (Function Overloading) ---" << endl;
+    cout << "Area of Laboratory (Rectangle): " << areaLab << endl;
+    cout << "Area of Classroom (Square): " << areaClassroom << endl;
+
+    return 0;
+}
+
+
+#include <iostream>
+#include <vector>
+#include <numeric>
+#include <iomanip>
+
+using namespace std;
+
+class SumCalculator {
+public:
+    double calculateSum(const vector<float>& floats) const {
+        double sum = 0.0;
+        for (float val : floats) {
+            sum += val;
+        }
+        return sum;
+    }
+
+    int calculateSum(const vector<int>& integers) const {
+        int sum = 0;
+        for (int val : integers) {
+            sum += val;
+        }
+        return sum;
+    }
+};
+
+int main() {
+    SumCalculator sc;
+
+    vector<float> floatValues(5);
+    cout << "Enter 5 float values:" << endl;
+    for (int i = 0; i < 5; ++i) {
+        cout << "Float " << i + 1 << ": ";
+        cin >> floatValues[i];
+    }
+
+    vector<int> intValues(10);
+    cout << "\nEnter 10 integer values:" << endl;
+    for (int i = 0; i < 10; ++i) {
+        cout << "Integer " << i + 1 << ": ";
+        cin >> intValues[i];
+    }
+
+    cout << "\n--- Sum Calculations (Function Overloading) ---" << endl;
+    cout << fixed << setprecision(2);
+    cout << "Sum of 5 Floats: " << sc.calculateSum(floatValues) << endl;
+    cout << "Sum of 10 Integers: " << sc.calculateSum(intValues) << endl;
+
+    return 0;
+}
+
+
+#include <iostream>
+
+using namespace std;
+
+class Value {
+private:
+    int number;
+
+public:
+    Value(int n = 0) : number(n) {}
+
+    void display() const {
+        cout << "Value: " << number << endl;
+    }
+
+    Value operator-() {
+        Value temp;
+        temp.number = -number;
+        return temp;
+    }
+};
+
+int main() {
+    int initialVal;
+    cout << "Enter an integer value: ";
+    cin >> initialVal;
+
+    Value v1(initialVal);
+    cout << "\nOriginal Value:" << endl;
+    v1.display();
+
+    Value v2 = -v1;
+    cout << "\nNegated Value (using Unary - operator):" << endl;
+    v2.display();
+
+    return 0;
+}
+
+
+#include <iostream>
+
+using namespace std;
+
+class Counter {
+private:
+    int count;
+
+public:
+    Counter(int c = 0) : count(c) {}
+
+    void display() const {
+        cout << "Count: " << count << endl;
+    }
+
+    Counter operator++() {
+        ++count;
+        return *this;
+    }
+
+    Counter operator++(int) {
+        Counter temp = *this;
+        count++;
+        return temp;
+    }
+};
+
+int main() {
+    Counter c1(5);
+    cout << "Initial value of c1:" << endl;
+    c1.display();
+
+    Counter c2 = ++c1;
+    cout << "\nAfter PRE-INCREMENT (++c1):" << endl;
+    cout << "c1: "; c1.display();
+    cout << "c2: "; c2.display();
+
+    Counter c3 = c1++;
+    cout << "\nAfter POST-INCREMENT (c1++):" << endl;
+    cout << "c1: "; c1.display();
+    cout << "c3 (returned old value): "; c3.display();
+
+    return 0;
+}
+
+
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class MyString {
+private:
+    string s;
+
+public:
+    MyString(const string& str = "") : s(str) {}
+
+    void display() const {
+        cout << "String: " << s << endl;
+    }
+
+    MyString operator+(const MyString& other) const {
+        MyString result;
+        result.s = this->s + other.s;
+        return result;
+    }
+};
+
+int main() {
+    MyString str1("xyz");
+    MyString str2("pqr");
+
+    cout << "String 1:" << endl;
+    str1.display();
+    cout << "String 2:" << endl;
+    str2.display();
+
+    MyString str3 = str1 + str2;
+
+    cout << "\nResult after concatenation (str1 + str2):" << endl;
+    str3.display();
+
+    return 0;
+}
+
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class ILogin {
+protected:
+    string username;
+    string password;
+
+public:
+    ILogin() {}
+    ILogin(string u, string p) : username(u), password(p) {}
+
+    void setCredentials() {
+        cout << "Enter Username/ID: ";
+        cin >> username;
+        cout << "Enter Password: ";
+        cin >> password;
+    }
+
+    virtual void accept() {
+        setCredentials();
+    }
+
+    virtual void displayLoginDetails() const = 0;
+};
+
+class EmailLogin : public ILogin {
+private:
+    string emailAddress;
+
+public:
+    EmailLogin() : ILogin() {}
+
+    void accept() override {
+        ILogin::setCredentials();
+        cout << "Enter Email Address: ";
+        cin >> emailAddress;
+    }
+
+    void displayLoginDetails() const override {
+        cout << "\n--- Email Login Details ---" << endl;
+        cout << "Username: " << username << endl;
+        cout << "Email: " << emailAddress << endl;
+    }
+};
+
+class MembershipLogin : public ILogin {
+private:
+    int membershipId;
+
+public:
+    MembershipLogin() : ILogin() {}
+
+    void accept() override {
+        ILogin::setCredentials();
+        cout << "Enter Membership ID: ";
+        cin >> membershipId;
+    }
+
+    void displayLoginDetails() const override {
+        cout << "\n--- Membership Login Details ---" << endl;
+        cout << "Username: " << username << endl;
+        cout << "Membership ID: " << membershipId << endl;
+    }
+};
+
+int main() {
+    ILogin* ptr;
+    
+    EmailLogin eLogin;
+    cout << "Enter Email Login Details:" << endl;
+    eLogin.accept();
+    
+    MembershipLogin mLogin;
+    cout << "\nEnter Membership Login Details:" << endl;
+    mLogin.accept();
+
+    ptr = &eLogin;
+    ptr->displayLoginDetails();
+
+    ptr = &mLogin;
+    ptr->displayLoginDetails();
+
+    return 0;
+}
+
+
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    ifstream inputFile("First.txt", ios::in);
+    ofstream outputFile("Second.txt", ios::out);
+
+    if (!inputFile) {
+        cerr << "Error: First.txt not found or could not be opened for reading." << endl;
+        return 1;
+    }
+
+    if (!outputFile) {
+        cerr << "Error: Second.txt could not be opened for writing." << endl;
+        return 1;
+    }
+
+    char ch;
+    while (inputFile.get(ch)) {
+        outputFile.put(ch);
+    }
+
+    cout << "Contents successfully copied from First.txt to Second.txt." << endl;
+
+    inputFile.close();
+    outputFile.close();
+
+    return 0;
+}
+
+
+
+#include <iostream>
+#include <fstream>
+#include <cctype>
+
+using namespace std;
+
+int main() {
+    ifstream inputFile("Count.txt", ios::in);
+
+    if (!inputFile) {
+        cerr << "Error: Count.txt not found or could not be opened." << endl;
+        return 1;
+    }
+
+    int digitCount = 0;
+    int spaceCount = 0;
+    char ch;
+
+    while (inputFile.get(ch)) {
+        if (isdigit(ch)) {
+            digitCount++;
+        } else if (isspace(ch)) {
+            spaceCount++;
+        }
+    }
+
+    cout << "--- File Analysis (Digits and Spaces) ---" << endl;
+    cout << "Total Digits Found: " << digitCount << endl;
+    cout << "Total Spaces Found: " << spaceCount << endl;
+
+    inputFile.close();
+    return 0;
+}
+
+
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    ifstream inputFile("Count.txt", ios::in);
+
+    if (!inputFile) {
+        cerr << "Error: Count.txt not found or could not be opened." << endl;
+        return 1;
+    }
+
+    int wordCount = 0;
+    string word;
+
+    while (inputFile >> word) {
+        wordCount++;
+    }
+
+    cout << "--- File Analysis (Words) ---" << endl;
+    cout << "Total Words Found: " << wordCount << endl;
+
+    inputFile.close();
+    return 0;
+}
+
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+string toLower(string s) {
+    transform(s.begin(), s.end(), s.begin(), ::tolower);
+    return s;
+}
+
+int main() {
+    ifstream inputFile("Count.txt", ios::in);
+    string searchWord;
+
+    cout << "Enter the word to count: ";
+    cin >> searchWord;
+
+    if (!inputFile) {
+        cerr << "Error: Count.txt not found or could not be opened." << endl;
+        return 1;
+    }
+
+    int count = 0;
+    string fileWord;
+    string lowerSearchWord = toLower(searchWord);
+
+    while (inputFile >> fileWord) {
+        if (toLower(fileWord) == lowerSearchWord) {
+            count++;
+        }
+    }
+
+    cout << "--- File Analysis (Word Occurrence) ---" << endl;
+    cout << "The word '" << searchWord << "' occurs " << count << " times." << endl;
+
+    inputFile.close();
+    return 0;
+}
+
+
+
+#include <iostream>
+#include <numeric>
+
+using namespace std;
+
+template <typename T>
+T findSum(const T arr[], int size) {
+    T sum = 0;
+    for (int i = 0; i < size; ++i) {
+        sum += arr[i];
+    }
+    return sum;
+}
+
+int main() {
+    const int SIZE = 10;
+
+    int intArray[SIZE] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    float floatArray[SIZE] = {1.5f, 2.5f, 3.5f, 4.5f, 5.5f, 6.5f, 7.5f, 8.5f, 9.5f, 10.5f};
+    double doubleArray[SIZE] = {0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0};
+
+    cout << "--- Function Template: Array Sum ---" << endl;
+    cout << "Sum of Integer Array: " << findSum(intArray, SIZE) << endl;
+    cout << "Sum of Float Array: " << findSum(floatArray, SIZE) << endl;
+    cout << "Sum of Double Array: " << findSum(doubleArray, SIZE) << endl;
+
+    return 0;
+}
+
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+template <typename T>
+T square(T value) {
+    return value * value;
+}
+
+template <>
+string square<string>(string value) {
+    return value + value;
+}
+
+int main() {
+    int num = 10;
+    double val = 5.5;
+    string text = "Hello";
+
+    cout << "--- Function Template Specialization: Square ---" << endl;
+    cout << "Square of Integer " << num << ": " << square(num) << endl;
+    cout << "Square of Double " << val << ": " << square(val) << endl;
+    cout << "Square of String '" << text << "': " << square(text) << endl;
+
+    return 0;
+}
+
+
+#include <iostream>
+
+using namespace std;
+
+template <typename T>
+class SimpleCalculator {
+private:
+    T num1;
+    T num2;
+
+public:
+    SimpleCalculator(T n1, T n2) : num1(n1), num2(n2) {}
+
+    T add() const {
+        return num1 + num2;
+    }
+
+    T subtract() const {
+        return num1 - num2;
+    }
+    
+    T multiply() const {
+        return num1 * num2;
+    }
+
+    T divide() const {
+        if (num2 == 0) {
+            cout << "Warning: Division by zero. Returning 0." << endl;
+            return 0;
+        }
+        return num1 / num2;
+    }
+};
+
+int main() {
+    SimpleCalculator<int> intCalc(10, 5);
+    SimpleCalculator<double> doubleCalc(15.5, 3.0);
+
+    cout << "--- Class Template: Integer Calculator ---" << endl;
+    cout << "Addition: " << intCalc.add() << endl;
+    cout << "Multiplication: " << intCalc.multiply() << endl;
+
+    cout << "\n--- Class Template: Double Calculator ---" << endl;
+    cout << "Subtraction: " << doubleCalc.subtract() << endl;
+    cout << "Division: " << doubleCalc.divide() << endl;
+
+    return 0;
+}
+
+
+
+#include <iostream>
+#include <vector>
+#include <stdexcept>
+
+using namespace std;
+
+template <typename T>
+class Stack {
+private:
+    vector<T> elements;
+
+public:
+    void push(const T& element) {
+        elements.push_back(element);
+        cout << "Pushed: " << element << endl;
+    }
+
+    T pop() {
+        if (elements.empty()) {
+            throw out_of_range("Stack is empty. Cannot pop.");
+        }
+        T topElement = elements.back();
+        elements.pop_back();
+        return topElement;
+    }
+
+    bool isEmpty() const {
+        return elements.empty();
+    }
+};
+
+int main() {
+    Stack<int> intStack;
+    
+    cout << "--- Class Template: Integer Stack ---" << endl;
+    intStack.push(10);
+    intStack.push(20);
+    
+    try {
+        cout << "Popped: " << intStack.pop() << endl;
+        cout << "Popped: " << intStack.pop() << endl;
+    } catch (const out_of_range& e) {
+        cerr << "Error: " << e.what() << endl;
+    }
+
+    Stack<string> stringStack;
+    cout << "\n--- Class Template: String Stack ---" << endl;
+    stringStack.push("First");
+    stringStack.push("Second");
+
+    try {
+        cout << "Popped: " << stringStack.pop() << endl;
+    } catch (const out_of_range& e) {
+        cerr << "Error: " << e.what() << endl;
+    }
+
+    return 0;
+}
+
+
+#include <iostream>
+#include <vector>
+#include <stdexcept>
+#include <algorithm>
+#include <numeric>
+
+using namespace std;
+
+template <typename T>
+class GenericVector {
+private:
+    vector<T> elements;
+
+public:
+    void create(int size) {
+        if (size <= 0) {
+            throw invalid_argument("Vector size must be positive.");
+        }
+        elements.resize(size);
+        cout << "Enter " << size << " elements:" << endl;
+        for (int i = 0; i < size; ++i) {
+            cout << "Element " << i + 1 << ": ";
+            cin >> elements[i];
+        }
+    }
+
+    void modify(int index, const T& newValue) {
+        if (index < 0 || index >= elements.size()) {
+            throw out_of_range("Invalid index for modification.");
+        }
+        elements[index] = newValue;
+    }
+
+    void multiplyByScalar(const T& scalar) {
+        for (T& element : elements) {
+            element *= scalar;
+        }
+    }
+
+    void display() const {
+        cout << "Vector: (";
+        for (size_t i = 0; i < elements.size(); ++i) {
+            cout << elements[i];
+            if (i < elements.size() - 1) {
+                cout << ",";
+            }
+        }
+        cout << ")" << endl;
+    }
+};
+
+int main() {
+    GenericVector<int> intVec;
+    
+    cout << "--- Generic Vector Demonstration (Integer) ---" << endl;
+    
+    try {
+        intVec.create(4);
+
+        cout << "\nInitial Vector:" << endl;
+        intVec.display();
+
+        intVec.modify(1, 200);
+        cout << "\nVector after modifying element at index 1 to 200:" << endl;
+        intVec.display();
+
+        intVec.multiplyByScalar(2);
+        cout << "\nVector after multiplying by scalar 2:" << endl;
+        intVec.display();
+        
+    } catch (const exception& e) {
+        cerr << "Error: " << e.what() << endl;
+    }
+
+    return 0;
+}
+
+
+#include <iostream>
+#include <vector>
+#include <stdexcept>
+#include <algorithm>
+#include <numeric>
+
+using namespace std;
+
+template <typename T>
+class GenericVector {
+private:
+    vector<T> elements;
+
+public:
+    void create(int size) {
+        if (size <= 0) {
+            throw invalid_argument("Vector size must be positive.");
+        }
+        elements.resize(size);
+        cout << "Enter " << size << " elements:" << endl;
+        for (int i = 0; i < size; ++i) {
+            cout << "Element " << i + 1 << ": ";
+            cin >> elements[i];
+        }
+    }
+
+    void modify(int index, const T& newValue) {
+        if (index < 0 || index >= elements.size()) {
+            throw out_of_range("Invalid index for modification.");
+        }
+        elements[index] = newValue;
+    }
+
+    void multiplyByScalar(const T& scalar) {
+        for (size_t i = 0; i < elements.size(); ++i) {
+            elements[i] *= scalar;
+        }
+    }
+
+    void display() const {
+        cout << "Vector: (";
+        for (size_t i = 0; i < elements.size(); ++i) {
+            cout << elements[i];
+            if (i < elements.size() - 1) {
+                cout << ",";
+            }
+        }
+        cout << ")" << endl;
+    }
+};
+
+int main() {
+    GenericVector<int> intVec;
+    
+    cout << "--- Generic Vector Demonstration (Integer) ---" << endl;
+    
+    try {
+        intVec.create(4);
+
+        cout << "\nInitial Vector:" << endl;
+        intVec.display();
+
+        intVec.modify(1, 200);
+        cout << "\nVector after modifying element at index 1 to 200:" << endl;
+        intVec.display();
+
+        intVec.multiplyByScalar(2);
+        cout << "\nVector after multiplying by scalar 2:" << endl;
+        intVec.display();
+        
+    } catch (const exception& e) {
+        cerr << "Error: " << e.what() << endl;
+    }
+
+    return 0;
+}
+
+#include <iostream>
+#include <stack>
+
+using namespace std;
+
+void implementStack() {
+    stack<int> s;
+
+    s.push(10);
+    cout << "Pushed: 10" << endl;
+    s.push(20);
+    cout << "Pushed: 20" << endl;
+    s.push(30);
+    cout << "Pushed: 30" << endl;
+
+    cout << "Top element is: " << s.top() << endl;
+    
+    cout << "Popped: " << s.top() << endl;
+    s.pop();
+
+    cout << "Popped: " << s.top() << endl;
+    s.pop();
+
+    cout << "Is stack empty? " << (s.empty() ? "Yes" : "No") << endl;
+}
+
+int main() {
+    implementStack();
+    return 0;
+}
+
+
+
+#include <iostream>
+#include <queue>
+#include <string>
+
+using namespace std;
+
+void implementQueue() {
+    queue<string> q;
+
+    q.push("First");
+    cout << "Pushed: First" << endl;
+    q.push("Second");
+    cout << "Pushed: Second" << endl;
+    q.push("Third");
+    cout << "Pushed: Third" << endl;
+
+    cout << "Front element is: " << q.front() << endl;
+
+    cout << "Popped (Served): " << q.front() << endl;
+    q.pop();
+
+    cout << "Popped (Served): " << q.front() << endl;
+    q.pop();
+
+    cout << "Is queue empty? " << (q.empty() ? "Yes" : "No") << endl;
+}
+
+int main() {
+    implementQueue();
+    return 0;
+}
